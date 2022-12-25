@@ -62,7 +62,6 @@ const Dashboard = () => {
 
 	return (
 		<div>
-			<h1>h9</h1>
 			<h1>Your Quote: {quote || "No Quote Found"} </h1>
 			<form onSubmit={updateQuote}>
 				<input

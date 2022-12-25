@@ -5,6 +5,7 @@ const mongoose = require('mongoose')
 const User = require('./models/user.model')
 const jwt = require('jsonwebtoken')
 
+
 app.use(cors())
 app.use(express.json())
 
@@ -44,6 +45,7 @@ app.post('/api/login', async (req, res) => {
         }
 
 })
+
 
 app.get('/api/quote', async (req, res) => {
 	const token = req.headers['x-access-token']
