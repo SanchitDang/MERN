@@ -1,6 +1,7 @@
 import { useState } from 'react';
 
 function Register() {
+
   const [name, setName] = useState('');
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
@@ -20,7 +21,13 @@ function Register() {
     })
 
     const data = await response.json()
-    console.log(data)
+    //console.log(data)
+
+    if (data.status === 'ok') {
+      window.location.href = '/login'
+      //history.apply('/login')
+			//history.push('/login')
+		}
   }
 
   return (

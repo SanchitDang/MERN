@@ -1,37 +1,46 @@
 import { useState } from 'react';
 
-const Login = () =>  {
-  const [email, setEmail] = useState('');
-  const [password, setPassword] = useState('');
+const Login = () => {
+    const [email, setEmail] = useState('');
+    const [password, setPassword] = useState('');
 
-  async function loginUser(event) {
-    event.preventDefault()
-    const response = await fetch('http://localhost:1337/api/login', {
-      method: 'POST',
-      headers: {
-        'Content-Type': 'application/json',
-      },
-      body: JSON.stringify({
-        email,
-        password
-      }),
-    })
+    async function loginUser(event) {
+        event.preventDefault()
+        const response = await fetch('http://localhost:1337/api/login', {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json',
+            },
+            body: JSON.stringify({
+                email,
+                password
+            }),
+        })
 
-    const data = await response.json()
-    console.log(data)
-  }
+        const data = await response.json()
 
-  return (
-    <div>
-      <h1> Log In </h1>
-      <form onSubmit={loginUser}>
-        <input value={email} onChange={(e) => setEmail(e.target.value)} type="email" placeholder='Eamil'/> 
-        <input value={password} onChange={(e) => setPassword(e.target.value)} type="password" placeholder='Password'/> 
-        <br/>
-        <input type="submit" value="Register"/>
-      </form>
-    </div>
-  );
+        if (data.user) {
+            localStorage.setItem('token', data.user)
+            alert('Login Successful')
+            window.location.href = '/Dashboard'
+        } else {
+            alert('Check Username or Password')
+        }
+
+        console.log(data)
+    }
+
+    return (
+        <div>
+            <h1> Log In </h1>
+            <form onSubmit={loginUser}>
+                <input value={email} onChange={(e) => setEmail(e.target.value)} type="email" placeholder='Eamil' />
+                <input value={password} onChange={(e) => setPassword(e.target.value)} type="password" placeholder='Password' />
+                <br />
+                <input type="submit" value="Login" />
+            </form>
+        </div>
+    );
 }
 
 export default Login;
